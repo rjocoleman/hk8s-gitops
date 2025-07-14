@@ -1,0 +1,32 @@
+# Environment files
+.env
+.env.local
+
+# Direnv
+.direnv
+
+# Generated configs (contain secrets)
+kubeconfig.yaml
+talosconfig.yaml
+omniconfig.yaml
+
+# SOPS temporary files
+*.dec
+*.tmp
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+
+age.agekey

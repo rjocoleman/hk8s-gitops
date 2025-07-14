@@ -1,0 +1,8 @@
+formatter:
+  type: basic
+  indent: 2
+  include_document_start: false
+  scan_folded_as_literal: true
+  retain_line_breaks: true
+  drop_merge_tag: true
+  pad_line_comments: 1

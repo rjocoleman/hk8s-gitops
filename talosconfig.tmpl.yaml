@@ -1,0 +1,9 @@
+context: ${TALOS_ORG_NAME}-${TALOS_CLUSTER_NAME}
+contexts:
+  ${TALOS_ORG_NAME}-${TALOS_CLUSTER_NAME}:
+    endpoints:
+      - https://${TALOS_ORG_NAME}.omni.siderolabs.io
+    auth:
+      siderov1:
+    identity: ${TALOS_IDENTITY}
+    cluster: ${TALOS_CLUSTER_NAME}

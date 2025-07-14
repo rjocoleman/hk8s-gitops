@@ -1,0 +1,7 @@
+contexts:
+  default:
+    url: https://${TALOS_ORG_NAME}.omni.siderolabs.io
+    auth:
+      siderov1:
+        identity: ${TALOS_IDENTITY}
+context: default

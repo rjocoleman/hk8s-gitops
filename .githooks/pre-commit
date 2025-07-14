@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Running pre-commit checks..."
+
+# Get list of staged YAML files
+staged_files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(yaml|yml)$' || true)
+
+if [ -n "$staged_files" ]; then
+    # Check for unencrypted secrets using the same validation as 'just check'
+    echo "Checking for unencrypted secrets..."
+    if ! just check $staged_files; then
+        exit 1
+    fi
+
+    # Run yamllint
+    echo "Running yamllint..."
+    if ! yamllint $staged_files; then
+        echo "❌ Pre-commit check failed: YAML linting errors found"
+        echo "Run 'yamllint <file>' to see detailed errors"
+        exit 1
+    fi
+
+    # Run yamlfmt and check if files were modified
+    echo "Running yamlfmt..."
+    for file in $staged_files; do
+        # Store original content
+        original=$(cat "$file")
+
+        # Run yamlfmt
+        yamlfmt "$file" || {
+            echo "❌ Pre-commit check failed: yamlfmt error on $file"
+            exit 1
+        }
+
+        # Check if file was modified
+        if [ "$original" != "$(cat "$file")" ]; then
+            echo "❌ Pre-commit check failed: $file needs formatting"
+            echo "Run 'yamlfmt $file' to fix formatting"
+            git checkout -- "$file"  # Restore original
+            exit 1
+        fi
+    done
+fi
+
+echo "✅ Pre-commit checks passed"

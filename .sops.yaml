@@ -1,0 +1,10 @@
+creation_rules:
+  - age: age1fts6hyp3rdq8sx6r96q7yg88fz8w220rxt0uq5g0f62ldnje6faqngydzx
+
+stores:
+  yaml:
+    indent: 2
+  json:
+    indent: 2
+  json_binary:
+    indent: 2
